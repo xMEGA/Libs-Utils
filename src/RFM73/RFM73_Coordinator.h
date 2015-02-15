@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 #include "RFM73_Driver.h"
-#include "RFM73_Stack.h"
 
 enum RFM73_CoordWritePayloadStatus_t
 {

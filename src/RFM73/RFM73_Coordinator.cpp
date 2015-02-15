@@ -80,10 +80,10 @@ uint8_t RFM73_Coordinator_t::GetRxSourceNodeAddr()
 
 void RFM73_Coordinator_t::Run()
 {
-    uint8_t len = m_RadioModule.GetRxPayloadWidth();
-  
     if( true == m_RadioModule.GetRxDataReadyIrqFlag() )
     {
+        uint8_t len = m_RadioModule.GetRxPayloadWidth();
+      
         RFM73_Pipe_t sourcePipe = m_RadioModule.GetRxDataSource();
         uint8_t sourceNodeAddr  = GetRxSourceNodeAddr();
 
@@ -95,9 +95,11 @@ void RFM73_Coordinator_t::Run()
         rxInfo.SourcePipe    = sourcePipe;
         rxInfo.pData         = m_RxData;
         rxInfo.DataLen       = len;
-        fp_RxCallBack( m_pRxContext, &rxInfo );
-
-        asm("nop");
+        
+        if( len > 0 )
+        {
+            fp_RxCallBack( m_pRxContext, &rxInfo );
+        }
     }
     
     if( true == m_RadioModule.GetTxDataSentIrqFlag() )

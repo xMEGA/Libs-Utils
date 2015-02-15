@@ -831,7 +831,9 @@ void RFM73_t::Init( RFM73_ControlInterface_t* pControlInterface )
     DelayUsec( RFM73_POWER_ON_RESET_TIME_US );
   
     ConnectionInit();
-    
+    ClearIrqFlag( RFM73_RX_DR );
+    ClearIrqFlag( RFM73_TX_DS );
+    ClearIrqFlag( RFM73_MAX_RT );
     //DelayUsec( RFM73_POWER_ON_RESET_TIME_US );
   
     InitBank1();   
